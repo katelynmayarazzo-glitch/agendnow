@@ -33,6 +33,9 @@ jobs:
 
       - name: Compilar AgendNow
         run: npm run build -- --base=/agendnow/
+        
+      - name: Criar fallback para rotas
+        run: cp dist/index.html dist/404.html
 
       - name: Preparar publicacao
         uses: actions/upload-pages-artifact@v3
