@@ -76,7 +76,11 @@ export const isFileMode = () => typeof location !== "undefined" && location.prot
 /** Link público de agendamento do estabelecimento. */
 export function publicUrl(slug: string) {
   if (isFileMode()) return `${location.href.split("#")[0]}#/${slug}`;
-  return `${location.origin}/${slug}`;
+
+  const base = import.meta.env.BASE_URL;
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+
+  return `${location.origin}${normalizedBase}${slug.replace(/^\/+/, "")}`;
 }
 export const hostPrefix = () => (isFileMode() ? "agendnow.com.br/" : `${location.host}/`);
 
