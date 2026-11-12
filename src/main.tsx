@@ -8,9 +8,10 @@ import { isFileMode } from "./lib/format";
 import { applyTheme, getTheme } from "./lib/theme";
 import "./index.css";
 
-// aplica o tema salvo antes de desenhar a tela (evita "piscar" branco)
+// Aplica o tema salvo antes de desenhar a tela
 applyTheme(getTheme());
-// se o tema mudar em outra aba (ex.: painel aberto + página do cliente), acompanha
+
+// Acompanha mudanças de tema em outras abas
 window.addEventListener("storage", (e) => {
   if (e.key === "agendapro:tema") {
     applyTheme(getTheme());
@@ -18,12 +19,14 @@ window.addEventListener("storage", (e) => {
   }
 });
 
-// Aberto como arquivo no computador → rotas com "#"; publicado num servidor → rotas normais.
-const Router = isFileMode() ? HashRouter : BrowserRouter;
+// Arquivo local usa HashRouter.
+// GitHub Pages usa o caminho-base definido pelo Vite.
+const fileMode = isFileMode();
+const Router = fileMode ? HashRouter : BrowserRouter;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Router>
+    <Router basename={fileMode ? undefined : import.meta.env.BASE_URL}>
       <ToastProvider>
         <AuthProvider>
           <App />
