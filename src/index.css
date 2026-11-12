@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* variante dark: segue a classe .dark (botão sol/lua), não só o sistema */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  @apply bg-[#f7f9fc] text-zinc-900 antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Cor da marca: azul sólido (sem degradê) */
+.bg-grad {
+  background-color: #1d4ed8;
+}
+.bg-grad-soft {
+  background-color: #f7f9fc;
+}
+.text-grad {
+  color: #93c5fd;
+}
+.text-grad-dark {
+  color: #1d4ed8;
+}
+.dark .text-grad-dark {
+  color: #93c5fd;
+}
+
+/* Cor de destaque de cada estabelecimento (definida em --accent na página pública) */
+.accent-bg {
+  background-color: var(--accent, #2563eb);
+}
+.accent-grad {
+  background-color: var(--accent, #2563eb);
+}
+.accent-text {
+  color: var(--accent, #2563eb);
+}
+.accent-ring {
+  box-shadow: 0 0 0 2px var(--accent, #2563eb);
+  border-color: var(--accent, #2563eb);
+  background-color: color-mix(in srgb, var(--accent, #2563eb) 6%, white);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.25s ease-out both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* =====================================================================
+   MODO ESCURO — ativado pela classe .dark no <html> (botão sol/lua).
+   Inverte a escala de cinza e o branco; o vermelho da marca continua.
+   ===================================================================== */
+.dark {
+  color-scheme: dark;
+  --color-zinc-50: #18233a;
+  --color-zinc-100: #1e2a42;
+  --color-zinc-200: #27344d;
+  --color-zinc-300: #34425e;
+  --color-zinc-400: #64748b;
+  --color-zinc-500: #94a3b8;
+  --color-zinc-600: #cbd5e1;
+  --color-zinc-700: #dbe3ee;
+  --color-zinc-800: #e2e8f0;
+  --color-zinc-900: #f1f5f9;
+  --color-zinc-950: #f8fafc;
+
+  --color-brand-50: rgb(37 99 235 / 0.16);
+  --color-brand-100: rgb(37 99 235 / 0.26);
+  --color-brand-200: rgb(37 99 235 / 0.36);
+  --color-brand-700: #93c5fd;
+
+  --color-cyan-50: rgb(6 182 212 / 0.14);
+  --color-cyan-700: #67e8f9;
+  --color-emerald-50: rgb(16 185 129 / 0.14);
+  --color-emerald-200: rgb(16 185 129 / 0.35);
+  --color-emerald-700: #6ee7b7;
+  --color-emerald-800: #a7f3d0;
+  --color-amber-50: rgb(245 158 11 / 0.14);
+  --color-amber-200: rgb(245 158 11 / 0.35);
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-amber-900: #fef3c7;
+  --color-sky-50: rgb(14 165 233 / 0.14);
+  --color-sky-200: rgb(14 165 233 / 0.35);
+  --color-sky-700: #7dd3fc;
+  --color-sky-800: #bae6fd;
+  --color-rose-50: rgb(244 63 94 / 0.14);
+  --color-rose-200: rgb(244 63 94 / 0.35);
+  --color-rose-700: #fda4af;
+}
+.dark body {
+  background-color: #0a1020;
+}
+.dark .bg-white {
+  background-color: #111a2e;
+}
+.dark .bg-white\/90 {
+  background-color: rgb(17 26 46 / 0.9);
+}
+.dark .bg-grad-soft {
+  background-color: #0b1220;
+}
+.dark .accent-ring {
+  background-color: color-mix(in srgb, var(--accent, #2563eb) 18%, #111a2e);
+}
+.dark .shadow-sm,
+.dark .shadow-xl,
+.dark .shadow-lg {
+  --tw-shadow-color: rgb(0 0 0 / 0.5);
+}
+html {
+  transition: background-color 0.2s;
+}
+
+/* Agenda em grade (clínicas) */
+:root {
+  --surface: #ffffff;
+  --grid-line: #e8edf4;
+  --grid-closed: #f5f8fc;
+}
+.dark {
+  --surface: #111a2e;
+  --grid-line: #1e2a40;
+  --grid-closed: #0d1526;
+}
+.cal-closed {
+  background-color: var(--grid-closed);
+  background-image: repeating-linear-gradient(135deg, transparent 0 7px, color-mix(in srgb, var(--grid-line) 70%, transparent) 7px 8px);
+}
+.cal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.cal-scroll::-webkit-scrollbar-thumb {
+  background: var(--grid-line);
+  border-radius: 8px;
+}
+
+/* ===== Painel (sistema principal) em azul ===== */
+.admin-bg {
+  background: #f4f6fa;
+}
+.dark .admin-bg {
+  background: #0b1220;
+}
+.admin-side {
+  background: #172554;
+}
+.dark .admin-side {
+  background: #0f1a33;
+}
+.admin-bar {
+  background: #172554;
+}
+.dark .admin-bar {
+  background: #0f1a33;
+}
+
+/* ===== Menu superior do painel (desktop) ===== */
+.topnav{display:none;position:sticky;top:0;z-index:30;color:#fff;box-shadow:0 1px 0 rgb(0 0 0 / .08)}
+@media (min-width:1024px){.topnav{display:block}}
+.topnav-in{display:flex;align-items:center;gap:.75rem;max-width:88rem;margin:0 auto;padding:.55rem 1.25rem}
+.topnav-logo{display:flex;flex-shrink:0;margin-right:.5rem}
+.topnav-nav{display:flex;flex:1;align-items:center;gap:.125rem;min-width:0}
+.topnav-right{display:flex;flex-shrink:0;align-items:center;gap:.5rem}
+.tn-wrap{position:relative}
+.tn-link{display:flex;align-items:center;gap:.5rem;border:0;border-radius:.75rem;background:none;padding:.5rem .65rem;font-size:.8125rem;font-weight:500;white-space:nowrap;color:rgb(255 255 255 / .78);cursor:pointer;transition:background .15s,color .15s}
+.tn-link:hover{background:rgb(255 255 255 / .12);color:#fff}
+.tn-link.active{background:#fafafa;color:#1d4ed8;font-weight:600;box-shadow:0 6px 14px rgb(23 37 84 / .25)}
+.dark .tn-link.active{background:rgb(255 255 255 / .15);color:#fff;box-shadow:0 0 0 1px rgb(255 255 255 / .2)}
+.tn-icon{display:none;width:1.1rem;height:1.1rem;flex-shrink:0}
+.tn-account{display:flex;align-items:center;gap:.5rem;border:0;border-radius:999px;background:rgb(255 255 255 / .15);padding:.25rem .65rem .25rem .25rem;font-size:.8125rem;font-weight:600;color:#fff;cursor:pointer;box-shadow:inset 0 0 0 1px rgb(255 255 255 / .25)}
+.tn-account:hover{background:rgb(255 255 255 / .25)}
+.tn-avatar{display:grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:999px;background:#fff;color:#1d4ed8;font-weight:800}
+.tn-account-name{display:none;max-width:8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (min-width:1280px){
+  .tn-icon{display:block}
+  .tn-link{padding:.5rem .85rem;font-size:.875rem}
+  .tn-account-name{display:inline}
+}
+.tn-backdrop{position:fixed;inset:0;z-index:35}
+.tn-menu{position:absolute;top:calc(100% + .5rem);right:0;z-index:40;min-width:14.5rem;border-radius:.75rem;background:#fff;padding:.25rem;color:#27272a;box-shadow:0 12px 32px rgb(15 23 42 / .22);border:1px solid #e4e4e7}
+.tn-menu-left{left:0;right:auto}
+.dark .tn-menu{background:#111a2e;color:#e2e8f0;border-color:#27344d}
+.tn-menu .tn-icon{display:block}
+.tn-menu-item{display:flex;align-items:center;gap:.6rem;width:100%;border:0;border-radius:.5rem;background:none;padding:.5rem .75rem;font-size:.875rem;font-weight:500;text-align:left;color:inherit;cursor:pointer}
+.tn-menu-item:hover{background:rgb(0 0 0 / .06)}
+.dark .tn-menu-item:hover{background:rgb(255 255 255 / .08)}
+.tn-menu-item.active{background:#eff6ff;color:#1d4ed8;font-weight:600}
+.dark .tn-menu-item.active{background:rgb(37 99 235 / .26);color:#93c5fd}
+.tn-menu-danger{color:#e11d48}
+.tn-menu-head{padding:.5rem .75rem}
+.tn-menu-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.875rem;font-weight:600}
+.tn-menu-sub{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.75rem;opacity:.65}
+.tn-menu-role{margin-top:.15rem;font-size:.6875rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.8}
+.tn-menu-sep{height:1px;margin:.25rem 0;background:rgb(0 0 0 / .08)}
+.dark .tn-menu-sep{background:rgb(255 255 255 / .1)}
